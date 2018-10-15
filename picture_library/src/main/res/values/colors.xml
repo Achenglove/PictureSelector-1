@@ -20,4 +20,11 @@
     <color name="bar_grey_90">#dd393a3e</color>
     <color name="color_4d">#4d4d4d</color>
     <color name="color_orange">#E0FF6100</color>
+
+    <!-- 右上角确认按钮不可用时的颜色 -->
+    <color name="bga_pp_btn_confirm_disabled">#8017C7D1</color>
+    <!-- 右上角确认按钮可用时的颜色 -->
+    <color name="bga_pp_btn_confirm_enabled">#17C7D1</color>
+    <!-- 右上角确认按钮按下时的颜色 -->
+    <color name="bga_pp_btn_confirm_pressed">#CC17C7D1</color>
 </resources>

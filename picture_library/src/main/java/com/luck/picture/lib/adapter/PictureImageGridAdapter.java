@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -26,6 +27,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DateUtils;
+import com.luck.picture.lib.tools.FileUtils;
 import com.luck.picture.lib.tools.StringUtils;
 import com.luck.picture.lib.tools.ToastManage;
 import com.luck.picture.lib.tools.VoiceUtils;
@@ -47,6 +49,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean showCamera = true;
     private OnPhotoSelectChangedListener imageSelectChangedListener;
     private int maxSelectNum;
+    private long maxSize,maxDuration;
     private List<LocalMedia> images = new ArrayList<LocalMedia>();
     private List<LocalMedia> selectImages = new ArrayList<LocalMedia>();
     private boolean enablePreview;
@@ -72,6 +75,8 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.selectMode = config.selectionMode;
         this.showCamera = config.isCamera;
         this.maxSelectNum = config.maxSelectNum;
+        this.maxSize = config.maxSize;
+        this.maxDuration = config.maxDuration;
         this.enablePreview = config.enablePreview;
         this.enablePreviewVideo = config.enPreviewVideo;
         this.enablePreviewAudio = config.enablePreviewAudio;
@@ -181,7 +186,8 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
             boolean eqLongImg = PictureMimeType.isLongImg(image);
             contentHolder.tv_long_chart.setVisibility(eqLongImg ? View.VISIBLE : View.GONE);
             long duration = image.getDuration();
-            contentHolder.tv_duration.setText(DateUtils.timeParse(duration));
+            long size = image.getSize();
+            contentHolder.tv_duration.setText(DateUtils.timeParse(duration)+"  "+DateUtils.getSizeByUnit(size));
             if (mimeType == PictureMimeType.ofAudio()) {
                 contentHolder.iv_picture.setImageResource(R.drawable.audio_placeholder);
             } else {
@@ -262,7 +268,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_picture;
         TextView check;
-        TextView tv_duration, tv_isGif, tv_long_chart;
+        TextView tv_duration,tv_size, tv_isGif, tv_long_chart;
         View contentView;
         LinearLayout ll_check;
 
@@ -326,6 +332,26 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
             return;
         }
 
+        //最大文件选择判断
+        if(maxSize!=0) {
+            if (image.getSize() > maxSize) {
+                boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
+                String str = eqImg ? context.getString(R.string.picture_message_max_num, maxSelectNum)
+                        : context.getString(R.string.msg_size_limit, FileUtils.fileSize(maxSize));
+                ToastManage.s(context, str);
+                return;
+            }
+        }
+        //最长文件选择判断
+        if(maxDuration!=0) {
+            if (image.getDuration() > maxDuration) {
+                boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
+                String str = eqImg ? context.getString(R.string.picture_message_max_num, maxSelectNum)
+                        : context.getString(R.string.msg_duration_limit, DateUtils.timeParse(maxDuration));
+                ToastManage.s(context, str);
+                return;
+            }
+        }
         if (isChecked) {
             for (LocalMedia media : selectImages) {
                 if (media.getPath().equals(image.getPath())) {

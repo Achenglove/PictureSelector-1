@@ -18,6 +18,7 @@ public class LocalMedia implements Parcelable {
     private String compressPath;
     private String cutPath;
     private long duration;
+    private long size;
     private boolean isChecked;
     private boolean isCut;
     public int position;
@@ -47,7 +48,15 @@ public class LocalMedia implements Parcelable {
         this.width = width;
         this.height = height;
     }
-
+    public LocalMedia(String path, long duration,long size, int mimeType, String pictureType, int width, int height) {
+        this.path = path;
+        this.duration = duration;
+        this.size = size;
+        this.mimeType = mimeType;
+        this.pictureType = pictureType;
+        this.width = width;
+        this.height = height;
+    }
     public LocalMedia(String path, long duration,
                       boolean isChecked, int position, int num, int mimeType) {
         this.path = path;
@@ -101,6 +110,13 @@ public class LocalMedia implements Parcelable {
         this.duration = duration;
     }
 
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
+    }
 
     public boolean isChecked() {
         return isChecked;
@@ -177,6 +193,7 @@ public class LocalMedia implements Parcelable {
         dest.writeString(this.compressPath);
         dest.writeString(this.cutPath);
         dest.writeLong(this.duration);
+        dest.writeLong(this.size);
         dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isCut ? (byte) 1 : (byte) 0);
         dest.writeInt(this.position);
@@ -193,6 +210,7 @@ public class LocalMedia implements Parcelable {
         this.compressPath = in.readString();
         this.cutPath = in.readString();
         this.duration = in.readLong();
+        this.size = in.readLong();
         this.isChecked = in.readByte() != 0;
         this.isCut = in.readByte() != 0;
         this.position = in.readInt();

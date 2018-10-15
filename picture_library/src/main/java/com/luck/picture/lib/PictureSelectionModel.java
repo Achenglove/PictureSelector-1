@@ -161,7 +161,19 @@ public class PictureSelectionModel {
         selectionConfig.maxSelectNum = maxSelectNum;
         return this;
     }
+    /**
+     * @param maxSize PictureSelector max selection
+     * @return
+     */
+    public PictureSelectionModel maxSize(long maxSize) {
+        selectionConfig.maxSize = maxSize;
+        return this;
+    }
 
+    public PictureSelectionModel maxDuration(long maxDuration) {
+        selectionConfig.maxDuration = maxDuration;
+        return this;
+    }
     /**
      * @param minSelectNum PictureSelector min selection
      * @return
@@ -262,7 +274,7 @@ public class PictureSelectionModel {
     }
 
     /**
-     * @param Less than how many KB images are not compressed
+     * @param size than how many KB images are not compressed
      * @return
      */
     public PictureSelectionModel minimumCompressSize(int size) {

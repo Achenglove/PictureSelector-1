@@ -1,5 +1,6 @@
 package com.luck.picture.lib;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -48,7 +49,7 @@ import io.reactivex.schedulers.Schedulers;
  * @描述: Activity基类
  */
 public class PictureBaseActivity extends FragmentActivity {
-    protected Context mContext;
+    protected Activity mContext;
     protected PictureSelectionConfig config;
     protected boolean openWhiteStatusBar, numComplete;
     protected int colorPrimary, colorPrimaryDark;

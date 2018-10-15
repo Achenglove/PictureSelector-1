@@ -1,6 +1,7 @@
 package com.luck.picture.lib.tools;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * author：luck
@@ -39,6 +40,23 @@ public class DateUtils {
         return time;
     }
 
+    /**
+     * 文件大小
+     */
+    private static final long MB = 1024 * 1024;
+
+    public static String getSizeByUnit(double size) {
+
+        if (size == 0) {
+            return "0K";
+        }
+        if (size >= MB) {
+            double sizeInM = size / MB;
+            return String.format(Locale.getDefault(), "%.1f", sizeInM) + "M";
+        }
+        double sizeInK = size / 1024;
+        return String.format(Locale.getDefault(), "%.1f", sizeInK) + "K";
+    }
     /**
      * MS turn every minute
      *

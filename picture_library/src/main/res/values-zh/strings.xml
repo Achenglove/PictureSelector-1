@@ -1,5 +1,5 @@
 <resources>
-    <string name="picture_camera_roll">相机胶卷</string>
+    <string name="picture_camera_roll">所有图片或视频</string>
     <string name="picture_cancel">取消</string>
     <string name="picture_take_picture">拍摄</string>
     <string name="picture_rule">不能同时选择图片或视频</string>
@@ -40,4 +40,6 @@
     <string name="picture_video_error">视频已损坏</string>
     <string name="picture_audio_error">音频已损坏</string>
     <string name="picture_confirm">确定</string>
+    <string name="msg_size_limit">请压缩和剪切后上传，文件最大只支持%1$s</string>
+    <string name="msg_duration_limit">请裁剪后上传，视频最长只支持%1$s</string>
 </resources>

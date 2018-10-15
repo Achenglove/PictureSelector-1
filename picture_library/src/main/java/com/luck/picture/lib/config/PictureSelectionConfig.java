@@ -29,6 +29,8 @@ public final class PictureSelectionConfig implements Parcelable {
     public int themeStyleId;
     public int selectionMode;
     public int maxSelectNum;
+    public long maxSize;
+    public long maxDuration;
     public int minSelectNum;
     public int videoQuality;
     public int cropCompressQuality;
@@ -73,6 +75,8 @@ public final class PictureSelectionConfig implements Parcelable {
         themeStyleId = R.style.picture_default_style;
         selectionMode = PictureConfig.MULTIPLE;
         maxSelectNum = 9;
+        maxSize=10485760L;
+        maxDuration=6000L;
         minSelectNum = 0;
         videoQuality = 1;
         cropCompressQuality = 90;
@@ -143,6 +147,8 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeInt(this.themeStyleId);
         dest.writeInt(this.selectionMode);
         dest.writeInt(this.maxSelectNum);
+        dest.writeLong(this.maxSize);
+        dest.writeLong(this.maxDuration);
         dest.writeInt(this.minSelectNum);
         dest.writeInt(this.videoQuality);
         dest.writeInt(this.cropCompressQuality);
@@ -193,6 +199,8 @@ public final class PictureSelectionConfig implements Parcelable {
         this.themeStyleId = in.readInt();
         this.selectionMode = in.readInt();
         this.maxSelectNum = in.readInt();
+        this.maxSize = in.readLong();
+        this.maxDuration = in.readLong();
         this.minSelectNum = in.readInt();
         this.videoQuality = in.readInt();
         this.cropCompressQuality = in.readInt();

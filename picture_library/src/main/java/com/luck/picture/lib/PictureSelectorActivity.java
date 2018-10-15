@@ -858,9 +858,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 if (!anim) {
                     picture_tv_img_num.startAnimation(animation);
                 }
-                picture_tv_img_num.setVisibility(View.VISIBLE);
+                picture_tv_img_num.setVisibility(View.GONE);
                 picture_tv_img_num.setText(String.valueOf(selectImages.size()));
-                picture_tv_ok.setText(getString(R.string.picture_completed));
+                picture_tv_ok.setText(getString(R.string.picture_completed)+"("+String.valueOf(selectImages.size())+"/"+config.maxSelectNum+")");
                 anim = false;
             }
         } else {
@@ -872,7 +872,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 picture_tv_ok.setText(getString(R.string.picture_done_front_num, 0,
                         config.selectionMode == PictureConfig.SINGLE ? 1 : config.maxSelectNum));
             } else {
-                picture_tv_img_num.setVisibility(View.INVISIBLE);
+                picture_tv_img_num.setVisibility(View.GONE);
                 picture_tv_ok.setText(getString(R.string.picture_please_select));
             }
         }

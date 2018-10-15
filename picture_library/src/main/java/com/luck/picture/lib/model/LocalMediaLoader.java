@@ -50,7 +50,8 @@ public class LocalMediaLoader {
             MediaStore.MediaColumns.MIME_TYPE,
             MediaStore.MediaColumns.WIDTH,
             MediaStore.MediaColumns.HEIGHT,
-            DURATION};
+            DURATION,
+            MediaStore.MediaColumns.SIZE};
 
     // 图片
     private static final String SELECTION = MediaStore.Files.FileColumns.MEDIA_TYPE + "=?"
@@ -168,8 +169,11 @@ public class LocalMediaLoader {
                                         int duration = data.getInt
                                                 (data.getColumnIndexOrThrow(PROJECTION[5]));
 
+                                        int size = data.getInt
+                                                (data.getColumnIndexOrThrow(PROJECTION[6]));
+
                                         LocalMedia image = new LocalMedia
-                                                (path, duration, type, pictureType, w, h);
+                                                (path, duration,size, type, pictureType, w, h);
 
                                         LocalMediaFolder folder = getImageFolder(path, imageFolders);
                                         List<LocalMedia> images = folder.getImages();
